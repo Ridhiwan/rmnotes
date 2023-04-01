@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "302702264777",
+    "project_id": "rmnotes",
+    "storage_bucket": "rmnotes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:302702264777:android:9bd0efc7dcd01a8a7ba818",
+        "android_client_info": {
+          "package_name": "com.rifazsolutions.rmnotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "302702264777-k79jtblmebl4oe9gi06idakc552ks09c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVKksFGqLaWUy5wkZoFxWDlge1V7Tr_FA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "302702264777-k79jtblmebl4oe9gi06idakc552ks09c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
