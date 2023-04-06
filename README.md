@@ -1,6 +1,6 @@
 # rmnotes
 
-A new Flutter project creating a notes.
+A new Flutter project creating a notes app.
 
 ## Getting Started
 
