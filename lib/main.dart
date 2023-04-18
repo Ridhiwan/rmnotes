@@ -1,4 +1,4 @@
-import 'dart:js';
+//import 'dart:js';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,7 +22,7 @@ void main() {
       routes: {
         '/login/': (context) => const LoginView(),
         '/register/': (context) => const RegisterView(),
-        '/MainUI/': (context) => const NotesView()
+        '/notes/': (context) => const NotesView()
       },
     ),
   );
@@ -51,6 +51,7 @@ class HomePage extends StatelessWidget {
             }
           default:
             return const CircularProgressIndicator(
+              strokeWidth: 10,
               color: CupertinoColors.activeGreen,
             );
       }
