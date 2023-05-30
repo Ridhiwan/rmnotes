@@ -10,12 +10,20 @@ import 'package:sqflite/sqflite.dart';
 class NotesService {
   Database? _db;
 
-  final _notesStreamController = StreamController<List<DatabaseNote>>.broadcast();
+  List<DatabaseNote> _notes = [];
 
-  // Create a singleton with factory constructor
   static final _shared = NotesService._sharedInstance();
-  NotesService._sharedInstance();
+  NotesService._sharedInstance() {
+    _notesStreamController = StreamController<List<DatabaseNote>>.broadcast(
+      onListen: () {
+        _notesStreamController.sink.add(_notes);
+      },
+    );
+  }
+
   factory NotesService() => _shared;
+
+  late final StreamController<List<DatabaseNote>> _notesStreamController;
 
   Stream<List<DatabaseNote>> get allNotes => _notesStreamController.stream;
 
@@ -31,8 +39,6 @@ class NotesService {
     }
 
   }
-
-  List<DatabaseNote> _notes = [];
 
 
   Future<void> _cacheNotes() async {
@@ -141,7 +147,7 @@ class NotesService {
       throw CouldNotFindUser();
     }
 
-    const text = '';
+    const text = 'Placeholder';
     //create the note
     final noteId = await db.insert(noteTable, {
       userIdColumn: owner.id,
@@ -152,7 +158,7 @@ class NotesService {
     final note = DatabaseNote(id: noteId,
       userId: owner.id,
       text: text,
-      syncedToCloud: true,
+      syncedToCloud: false,
     );
 
     _notes.add(note);

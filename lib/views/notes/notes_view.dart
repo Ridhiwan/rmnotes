@@ -22,11 +22,6 @@ class _NotesViewState extends State<NotesView> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    _notesService.close();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,14 +67,61 @@ class _NotesViewState extends State<NotesView> {
                   switch(snapshot.connectionState){
                     case ConnectionState.waiting:
                     case ConnectionState.active:
-                      return const Text("Waiting for all notes.....");
+                      if (snapshot.hasData){
+                        final allNotes = snapshot.data as List<DatabaseNote>;
+                        print(allNotes);
+                        return ListView.builder(
+                          itemCount: allNotes.length,
+                          itemBuilder: (context, index) {
+                            final note = allNotes[index];
+                            return Text(
+                              note.id.toString(),
+                              maxLines: 1,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                            );
+                          },
+                        );
+                      } else {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              CircularProgressIndicator(
+                                strokeWidth: 10,
+                                color: Colors.lightBlueAccent,
+                              ),
+                            ],
+                          ),
+                        );
+                      }
                     default:
-                      return const CircularProgressIndicator();
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            CircularProgressIndicator(
+                              strokeWidth: 10,
+                              color: Colors.lightBlueAccent,
+                            ),
+                          ],
+                        ),
+                      );
                   }
                 },
               );
             default:
-              return const CircularProgressIndicator();
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    CircularProgressIndicator(
+                      strokeWidth: 10,
+                      color: Colors.lightBlueAccent,
+                    ),
+                  ],
+                ),
+              );
           }
         },
       ),

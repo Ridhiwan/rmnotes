@@ -18,6 +18,7 @@ class _NewNoteViewState extends State<NewNoteView> {
   void initState() {
     _notesService = NotesService();
     _textController = TextEditingController();
+    _textController.addListener(_printLatestValue);
     super.initState();
   }
 
@@ -30,8 +31,11 @@ class _NewNoteViewState extends State<NewNoteView> {
     await _notesService.updateNote(note: note, text: text);
   }
 
+  void _printLatestValue() {
+    print('Second text field: ${_textController.text}');
+  }
+
   void _setupTextControllerListener() async{
-    _textController.removeListener(_textControllerListener);
     _textController.addListener(_textControllerListener);
   }
 
@@ -91,7 +95,17 @@ class _NewNoteViewState extends State<NewNoteView> {
                 ),
               );
             default:
-              return const CircularProgressIndicator();
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    CircularProgressIndicator(
+                      strokeWidth: 10,
+                      color: Colors.lightBlueAccent,
+                    ),
+                  ],
+                ),
+              );
           }
         },
       ),
